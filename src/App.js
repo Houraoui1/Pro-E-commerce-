@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header";
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem, setDataProduct } from "./reduxx/Productslice";
 
 function App() {
+  const product = useSelector((state) => state.product.productList);
+  console.log(product, "ellof fdsnfskjdf");
+  const Dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/product`
+      );
+
+      const result = await response.json();
+      Dispatch(setDataProduct(result));
+
+      console.log(result);
+    })();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Toaster />
+      <Header />
+      <main className="pt-16 bg-slate-100 min-h-[calc(100vh)]">
+        <Outlet />
+      </main>
     </div>
   );
 }
