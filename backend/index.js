@@ -142,7 +142,7 @@ app.post("/uploadproduct", async (req, res) => {
 //api
 app.get("/product", async (req, res) => {
   try {
-    const allData = await product.find({});
+    const allData = await cd.find({});
     console.log(allData);
 
     res.send(allData);
