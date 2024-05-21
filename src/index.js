@@ -21,6 +21,7 @@ import { store } from "./reduxx/Store";
 import { Provider } from "react-redux";
 import Cart from "./page/Cart";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
